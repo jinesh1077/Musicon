@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+
+    tools:context="com.jin10.musicon.TagActivity">
+
+
+    <EditText
+        android:id="@+id/tagSong"
+        android:layout_width="163dp"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:textColor="@color/ghostWhite"
+        android:textColorHint="@color/ghostWhite"
+        android:hint="song name" />
+
+    <EditText
+        android:id="@+id/tagArtist"
+        android:layout_width="163dp"
+        android:layout_height="45dp"
+        android:layout_alignStart="@+id/tagSong"
+        android:textColor="@color/ghostWhite"
+        android:textColorHint="@color/ghostWhite"
+        android:hint="artist name" />
+
+    <Button
+        android:id="@+id/tagButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/metBlack"
+        android:layout_below="@+id/tagSong"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/ghostWhite"
+        android:text="Confirm" />
+
+
+</RelativeLayout>

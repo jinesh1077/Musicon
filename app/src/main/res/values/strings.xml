@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Musicon</string>
+    <string name="Art">Art</string>
+    <string name="detail">detail</string>
+    <string name="Lyrics">Lyrics</string>
+    <string name="Tag">Tag</string>
+    <string name="action_settings">Settings</string>
+</resources>

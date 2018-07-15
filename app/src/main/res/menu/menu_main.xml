@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/metBlack"
+    tools:context="com.jin10.musicon.MainActivity">
+    <item
+        android:id="@+id/Art"
+        android:orderInCategory="100"
+        android:title="@string/Art"
+        android:background="@color/metBlack"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/lyrics"
+        android:orderInCategory="100"
+        android:title="@string/Lyrics"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/Tag"
+        android:orderInCategory="100"
+        android:title="@string/Tag"
+        app:showAsAction="never" />
+</menu>
