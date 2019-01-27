@@ -25,7 +25,10 @@ public class SongListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_list);
 
+
+
         songList = new ArrayList<Song>();
+        //songList = (ArrayList<Song>) getIntent().getSerializableExtra("list");
         songView=(ListView)findViewById(R.id.songView);
         getSongList();
 
@@ -49,20 +52,37 @@ public class SongListActivity extends AppCompatActivity {
         Uri musicUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         Cursor cursor = musicRes.query(musicUri,null,null,null,null);
 
-        if(cursor!=null&&cursor.moveToFirst()){
+        if (cursor != null && cursor.moveToFirst() ) {
 
             int songTitle = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
             int songId = cursor.getColumnIndex(MediaStore.Audio.Media._ID);
             int songArtist = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
+            int songAlbum = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
+            int albumID = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID);
 
-
-            do{
+            do {
 
                 int _Id = cursor.getInt(songId);
                 String _Title = cursor.getString(songTitle);
                 String _Artist = cursor.getString(songArtist);
-                songList.add(new Song(_Id, _Title, _Artist));
-            }while (cursor.moveToNext());
+                String _Album = cursor.getString(songAlbum);
+                String _albumId = cursor.getString(albumID);
+
+                Cursor cursor2 = getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                        new String[] {MediaStore.Audio.Albums._ID, MediaStore.Audio.Albums.ALBUM_ART},
+                        MediaStore.Audio.Albums._ID+ "=?",
+                        new String[] {String.valueOf(_albumId)},
+                        null);
+                String _cover="";
+                if (cursor2.moveToFirst()) {
+                    _cover = cursor2.getString(cursor2.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART));
+                    // do whatever you need to do
+                }
+
+
+                String _cover2="noth";
+                songList.add(new Song(_Id, _Title, _Artist,_Album,_cover));
+            } while (cursor.moveToNext());
 
         }
 

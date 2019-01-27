@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="5dp"
     android:onClick="songSelected"
-    android:background="@color/metBlack"
+    android:background="@drawable/main_background"
 
     >
 

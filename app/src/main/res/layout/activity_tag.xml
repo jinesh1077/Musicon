@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="@drawable/main_background"
 
     tools:context="com.jin10.musicon.TagActivity">
 
@@ -24,6 +24,7 @@
         android:id="@+id/tagArtist"
         android:layout_width="163dp"
         android:layout_height="45dp"
+        android:layout_marginTop="15dp"
         android:layout_alignStart="@+id/tagSong"
         android:textColor="@color/ghostWhite"
         android:textColorHint="@color/ghostWhite"
@@ -33,7 +34,7 @@
         android:id="@+id/tagButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/metBlack"
+        android:background="@drawable/main_background"
         android:layout_below="@+id/tagSong"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"

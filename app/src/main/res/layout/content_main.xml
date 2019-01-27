@@ -5,7 +5,7 @@
     android:id="@+id/MainLinear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/metBlack"
+    android:background="@drawable/main_background"
 
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -16,83 +16,104 @@
     <ImageView
         android:id="@+id/cover"
         android:layout_width="match_parent"
-        android:layout_height="365dp"
-        app:srcCompat="@android:drawable/btn_star" />
+        android:layout_height="337dp"
+        android:background="@android:color/transparent"
+        android:padding="60dp"
+        android:src="@drawable/unk" />
+
+    <Button
+        android:id="@+id/songDetailPrev"
+        android:layout_width="match_parent"
+        android:layout_height="118dp"
+        android:background="@android:color/transparent"
+        android:textColor="@color/ghostWhite" />
 
     <Button
         android:id="@+id/songDetail"
         android:layout_width="match_parent"
-        android:layout_height="61dp"
-        android:background="@color/metBlack"
+        android:layout_height="93dp"
+        android:layout_marginLeft="0dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_horizontal"
         android:text="@string/detail"
         android:textColor="@color/ghostWhite" />
 
-    <SeekBar
-        android:id="@+id/seekBar"
+    <Button
+        android:id="@+id/songDetailPast"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-
-        />
+        android:layout_height="47dp"
+        android:background="@android:color/transparent"
+        android:textColor="@color/ghostWhite" />
 
     <LinearLayout
         android:id="@+id/BtnLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal">
 
-        >
 
-
-        <Button
+        <ImageButton
             android:id="@+id/repeatButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:background="@drawable/repeat"
+            android:src="@drawable/repeat"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
             android:onClick="repeatButton" />
 
-        <Button
+        <ImageButton
             android:id="@+id/prevButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:background="@drawable/prev"
+            android:src="@drawable/prev"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
             android:onClick="prevButton" />
 
-        <Button
+        <ImageButton
             android:id="@+id/playButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/play"
+            android:src="@drawable/play"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
             android:onClick="playButton" />
 
-        <Button
+        <ImageButton
             android:id="@+id/nextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:background="@drawable/next"
+            android:src="@drawable/next"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
             android:onClick="nextButton" />
 
-        <Button
+        <ImageButton
             android:id="@+id/shuffleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:background="@drawable/shuffle"
+            android:src="@drawable/shuffle"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
             android:onClick="shuffleButton"
 
             />

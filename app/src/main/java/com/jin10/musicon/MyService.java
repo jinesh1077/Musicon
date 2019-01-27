@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.os.PowerManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -29,8 +31,9 @@ public class MyService extends Service implements
     private int songPosn;
     private ArrayList<Song> song;
     private MediaPlayer player;
-    private boolean pause = false,flag=false,repeat=false,shuffle=false;
-    private Button detailButton,playBtn,shuffleBtn,repeatBtn;
+    private Button detailButton;
+    private boolean pause = false, flag = false, repeat = false, shuffle = false;
+    private ImageButton playBtn, shuffleBtn, repeatBtn;
     private Random random;
     private Context context;
     private ImageView songCover;
@@ -38,10 +41,9 @@ public class MyService extends Service implements
     private LinearLayout lay;
 
 
-
     private final IBinder binder = new musicBinder();
 
-    public void onCreate(){
+    public void onCreate() {
         super.onCreate();
 
 
@@ -62,26 +64,25 @@ public class MyService extends Service implements
         return binder;
     }
 
-    public class musicBinder extends Binder{
-        MyService getService(){
+    public class musicBinder extends Binder {
+        MyService getService() {
             return MyService.this;
         }
     }
 
     @Override
-    public boolean onUnbind(Intent intent){
+    public boolean onUnbind(Intent intent) {
         player.stop();
         player.release();
         return false;
     }
 
 
-
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
-        if(player.getCurrentPosition()>0){
+        if (player.getCurrentPosition() > 0) {
             mediaPlayer.reset();
-            if(repeat)
+            if (repeat)
                 playSong();
             else
                 nextSong();
@@ -100,24 +101,30 @@ public class MyService extends Service implements
     }
 
 
-
-
-    public void playSong(){
+    public void playSong() {
         player.reset();
-        detailButton.setText(song.get(songPosn).get_title());
+        detailButton.setText(song.get(songPosn).get_title()+"\n"+song.get(songPosn).get_artist()+"\n"+song.get(songPosn).get_album());
         long current = song.get(songPosn).getId();
-        playBtn.setBackgroundResource(R.drawable.pause);
+        playBtn.setImageResource(R.drawable.pause);
 
         SharedPreferences sharedPref = getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        editor.putInt("posn",songPosn);
+        editor.putInt("posn", songPosn);
         editor.apply();
 
-        String imgSelect = imgDest +detailButton.getText().toString() + ".jpg";
+        String imgSelect = imgDest + song.get(songPosn).get_title() + ".jpg";
 
         Bitmap bitmap = BitmapFactory.decodeFile(imgSelect);
-        songCover.setImageBitmap(bitmap);
+        if (bitmap != null) {
+            songCover.setImageBitmap(bitmap);
+        }else{
+            if(song.get(songPosn).get_cover()!=null){
+                bitmap = BitmapFactory.decodeFile(song.get(songPosn).get_cover());
+                songCover.setImageBitmap(bitmap);
+            }else
+            songCover.setImageResource(R.drawable.unk);
+        }
         //lay.setBackground(songCover.getDrawable());
 
         Uri track = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,current);
@@ -138,7 +145,7 @@ public class MyService extends Service implements
         player.prepareAsync();
     }
 
-    public void setSongDetail(Button btn, Button btn2, ImageView imgView,String _str,LinearLayout _lay){
+    public void setSongDetail(Button btn, ImageButton btn2, ImageView imgView,String _str,LinearLayout _lay){
         detailButton = btn;
         playBtn = btn2;
         songCover = imgView;
@@ -155,13 +162,13 @@ public class MyService extends Service implements
 
         if(player.isPlaying()){
             player.pause();
-            playBtn.setBackgroundResource(R.drawable.play);
+            playBtn.setImageResource(R.drawable.play);
 
         }
         else {
 
             player.start();
-            playBtn.setBackgroundResource(R.drawable.pause);
+            playBtn.setImageResource(R.drawable.pause);
 
 
         }

@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="metBlack">#0C090A</color>
-    <color name="ghostWhite">#E0FFFF</color>
+    <color name="metBlack">#110c11</color>
+    <color name="ghostWhite">#110c11</color>
     <color name="secondWhite">#C2DFFF</color>
 </resources>

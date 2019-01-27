@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
@@ -48,12 +50,13 @@ public class MainActivity extends AppCompatActivity {
 
     MyService musicSrv;
     boolean isBound = false;
-    private Button detailButton,shuffleBtn,repeatBtn;
+    private Button detailButton;
+    private ImageButton shuffleBtn,repeatBtn;
     private ArrayList<Song> songList;
     int songPos;
     private Intent playIntent;
     private boolean start = true, shuffle = false, repeat = false;
-    private Button playBtn;
+    private ImageButton playBtn;
     private String imgLoc;
     private File folder;
     private Bitmap bitmap;
@@ -83,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         lyr[0]="";
         lyr[1]="";
         detailButton = (Button) findViewById(R.id.songDetail);
-        playBtn = (Button) findViewById(R.id.playButton);
-        shuffleBtn = (Button)findViewById(R.id.shuffleButton);
-        repeatBtn = (Button)findViewById(R.id.repeatButton);
+        playBtn = (ImageButton) findViewById(R.id.playButton);
+        shuffleBtn = (ImageButton)findViewById(R.id.shuffleButton);
+        repeatBtn = (ImageButton)findViewById(R.id.repeatButton);
         dbHandler = new MyDbHandler(this,null,null,1);
         lay= (LinearLayout)findViewById(R.id.BtnLay);
 
@@ -110,29 +113,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, SongListActivity.class);
+                //i.putExtra("list",songList);
                 startActivityForResult(i, 234);
             }
         });
 
-        detailButton.setText(songList.get(songPos).get_title());
+        detailButton.setText(songList.get(songPos).get_title()+"\n"+songList.get(songPos).get_artist()+"\n"+songList.get(songPos).get_album());
 
         folder = getExternalFilesDir("");
 
         File f= new File(folder, "coverOfSong");
         if (!f.exists())
             if (!f.mkdir()) {
-                Toast.makeText(this, folder+" can't be created.", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, folder+" can't be created.", Toast.LENGTH_LONG).show();
 
-            } else
-                Toast.makeText(this, folder+" can be created.", Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(this, folder+" already exits.", Toast.LENGTH_LONG).show();
-
+            } else {
+                //Toast.makeText(this, folder+" can be created.", Toast.LENGTH_LONG).show();
+            }
+        else {
+         //   Toast.makeText(this, folder + " already exits.", Toast.LENGTH_LONG).show();
+        }
         String imgSelect = folder + "/coverOfSong/" +detailButton.getText().toString() + ".jpg";
         imgLoc = folder+"/coverOfSong/";
+
         bitmap = BitmapFactory.decodeFile(imgSelect);
+
+
         songCover = (ImageView) findViewById(R.id.cover);
+        if(bitmap!=null){
         songCover.setImageBitmap(bitmap);
+        }else {
+            //Toast.makeText(this, songList.get(songPos).get_cover() + "", Toast.LENGTH_LONG).show();
+            if(songList.get(songPos).get_cover()!=""){
+                bitmap = BitmapFactory.decodeFile(songList.get(songPos).get_cover());
+                songCover.setImageBitmap(bitmap);
+            }
+        }
         //lay.setBackground(songCover.getDrawable());
 
 
@@ -162,6 +178,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.Tag) {
             Intent iTag = new Intent(MainActivity.this,TagActivity.class);
+            String songName,aritstName;
+            songName=songList.get(songPos).get_title();
+            aritstName=songList.get(songPos).get_artist();
+            iTag.putExtra("song",songName);
+            iTag.putExtra("artist",aritstName);
             startActivityForResult(iTag,45);
             return true;
         }
@@ -201,20 +222,37 @@ public class MainActivity extends AppCompatActivity {
         Uri musicUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         Cursor cursor = musicRes.query(musicUri, null, null, null, null);
 
-        if (cursor != null && cursor.moveToFirst()) {
+
+        if (cursor != null && cursor.moveToFirst() ) {
 
             int songTitle = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
             int songId = cursor.getColumnIndex(MediaStore.Audio.Media._ID);
             int songArtist = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
-            int songArtist2 = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
-
+            int songAlbum = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
+            int albumID = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID);
 
             do {
 
                 int _Id = cursor.getInt(songId);
                 String _Title = cursor.getString(songTitle);
                 String _Artist = cursor.getString(songArtist);
-                songList.add(new Song(_Id, _Title, _Artist));
+                String _Album = cursor.getString(songAlbum);
+                String _albumId = cursor.getString(albumID);
+
+                Cursor cursor2 = getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                        new String[] {MediaStore.Audio.Albums._ID, MediaStore.Audio.Albums.ALBUM_ART},
+                        MediaStore.Audio.Albums._ID+ "=?",
+                        new String[] {String.valueOf(_albumId)},
+                        null);
+                String _cover="";
+                if (cursor2.moveToFirst()) {
+                    _cover = cursor2.getString(cursor2.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART));
+                    // do whatever you need to do
+                }
+
+
+                String _cover2="noth";
+                songList.add(new Song(_Id, _Title, _Artist,_Album,_cover));
             } while (cursor.moveToNext());
 
         }
@@ -263,11 +301,11 @@ public class MainActivity extends AppCompatActivity {
     public void shuffleButton(View view) {
         if (shuffle) {
             shuffle = false;
-            shuffleBtn.setBackgroundResource(R.drawable.shuffle);
+            shuffleBtn.setImageResource(R.drawable.shuffle);
         }
         else {
             shuffle = true;
-            shuffleBtn.setBackgroundResource(R.drawable.shuffletrue);
+            shuffleBtn.setImageResource(R.drawable.shuffletrue);
         }
         musicSrv.setShuffle(shuffle);
 
@@ -276,11 +314,11 @@ public class MainActivity extends AppCompatActivity {
     public void repeatButton(View view) {
         if (repeat) {
             repeat = false;
-            repeatBtn.setBackgroundResource(R.drawable.repeat);
+            repeatBtn.setImageResource(R.drawable.repeat);
         }
         else {
             repeat = true;
-            repeatBtn.setBackgroundResource(R.drawable.repeattrue);
+            repeatBtn.setImageResource(R.drawable.repeattrue);
         }
         musicSrv.setRepeat(repeat);
     }

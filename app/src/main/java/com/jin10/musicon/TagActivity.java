@@ -22,6 +22,12 @@ public class TagActivity extends AppCompatActivity {
         tagArtist = (EditText)findViewById(R.id.tagArtist);
         tagSong = (EditText)findViewById(R.id.tagSong);
 
+        String song,artist;
+        song=getIntent().getStringExtra("song");
+        artist=getIntent().getStringExtra("artist");
+
+        tagArtist.setText(artist);
+        tagSong.setText(song);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -29,7 +35,7 @@ public class TagActivity extends AppCompatActivity {
         width = dm.widthPixels;
         height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*0.7),(int)(height*0.5));
+        getWindow().setLayout((int)(width*0.7),(int)(height*0.3));
 
         tagButton.setOnClickListener(new View.OnClickListener() {
             @Override
