@@ -6,4 +6,5 @@
     <color name="metBlack">#110c11</color>
     <color name="ghostWhite">#110c11</color>
     <color name="secondWhite">#C2DFFF</color>
+    <color name="pureWhite">#FFFFFF</color>
 </resources>

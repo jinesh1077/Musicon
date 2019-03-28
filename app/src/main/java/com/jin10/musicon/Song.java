@@ -1,7 +1,9 @@
 package com.jin10.musicon;
 
 
-public class Song {
+import java.io.Serializable;
+
+public class Song implements Serializable {
 
     private int _id;
     private String _title;

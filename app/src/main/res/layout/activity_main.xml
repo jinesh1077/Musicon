@@ -8,23 +8,32 @@
     tools:context="com.jin10.musicon.MainActivity">
 
 
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/main_background"
+
+        >
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/metBlack"
+            android:layout_height="wrap_content"
             app:popupTheme="@style/AppTheme.NoActionBar" />
+        <include
+            layout="@layout/content_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 
 
 
-
-
-
-    <include
-        layout="@layout/content_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 
 

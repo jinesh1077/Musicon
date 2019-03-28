@@ -94,7 +94,7 @@ public class LyricsActivity extends AppCompatActivity {
         //Toast.makeText(this, s+"", Toast.LENGTH_SHORT).show();
 
         if(s.equals(url)){
-            Toast.makeText(this, "Lyrics Not Found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Write Propare Tag For Song", Toast.LENGTH_SHORT).show();
         }
         else{
             //Toast.makeText(this, "Display", Toast.LENGTH_SHORT).show();

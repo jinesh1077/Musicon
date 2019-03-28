@@ -16,7 +16,8 @@
     <ImageView
         android:id="@+id/cover"
         android:layout_width="match_parent"
-        android:layout_height="337dp"
+        android:layout_height="0dp"
+        android:layout_weight="5"
         android:background="@android:color/transparent"
         android:padding="60dp"
         android:src="@drawable/unk" />
@@ -24,31 +25,43 @@
     <Button
         android:id="@+id/songDetailPrev"
         android:layout_width="match_parent"
-        android:layout_height="118dp"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:background="@android:color/transparent"
         android:textColor="@color/ghostWhite" />
-
-    <Button
-        android:id="@+id/songDetail"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="93dp"
-        android:layout_marginLeft="0dp"
-        android:background="@android:color/transparent"
-        android:gravity="center_horizontal"
-        android:text="@string/detail"
-        android:textColor="@color/ghostWhite" />
+        android:layout_height="0dp"
+        android:layout_weight="2"
+
+        >
+        <Button
+            android:id="@+id/songDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:background="@drawable/button_detail"
+            android:gravity="center_horizontal"
+            android:text="@string/detail"
+            android:textColor="@color/ghostWhite" />
+
+
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/songDetailPast"
         android:layout_width="match_parent"
-        android:layout_height="47dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@android:color/transparent"
         android:textColor="@color/ghostWhite" />
 
     <LinearLayout
         android:id="@+id/BtnLay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:layout_marginBottom="20dp"
         android:background="@android:color/transparent"
         android:orientation="horizontal">
@@ -57,7 +70,7 @@
         <ImageButton
             android:id="@+id/repeatButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
@@ -70,7 +83,7 @@
         <ImageButton
             android:id="@+id/prevButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
@@ -83,7 +96,7 @@
         <ImageButton
             android:id="@+id/playButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/play"
             android:background="@android:color/transparent"
@@ -93,7 +106,7 @@
         <ImageButton
             android:id="@+id/nextButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
@@ -106,7 +119,7 @@
         <ImageButton
             android:id="@+id/shuffleButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"

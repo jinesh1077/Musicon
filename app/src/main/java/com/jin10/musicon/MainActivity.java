@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +39,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isBound = false;
     private Button detailButton;
     private ImageButton shuffleBtn,repeatBtn;
-    private ArrayList<Song> songList;
+    public ArrayList<Song> songList;
     int songPos;
     private Intent playIntent;
     private boolean start = true, shuffle = false, repeat = false;
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private MyDbHandler dbHandler;
     private String[] lyr=new String[2];
     private LinearLayout lay;
+
 
 
 
@@ -108,13 +111,16 @@ public class MainActivity extends AppCompatActivity {
         songPos = sharedPref.getInt("posn", 0);
 
         //Toast.makeText(MainActivity.this,"abc "+songPos,Toast.LENGTH_SHORT).show();
+        final ArrayList<Song> songList2=songList;
+        //Toast.makeText(MainActivity.this,"abc "+songList,Toast.LENGTH_LONG).show();
+        final Intent intent = new Intent(MainActivity.this, SongListActivity.class);
+        intent.putExtra("list", songList);
 
         detailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, SongListActivity.class);
-                //i.putExtra("list",songList);
-                startActivityForResult(i, 234);
+
+                startActivityForResult(intent, 234);
             }
         });
 
@@ -178,9 +184,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.Tag) {
             Intent iTag = new Intent(MainActivity.this,TagActivity.class);
-            String songName,aritstName;
-            songName=songList.get(songPos).get_title();
-            aritstName=songList.get(songPos).get_artist();
+            String songName="",aritstName="";
+
             iTag.putExtra("song",songName);
             iTag.putExtra("artist",aritstName);
             startActivityForResult(iTag,45);
@@ -332,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
             if (requestCode == 234) {
 
                 songPos = data.getIntExtra("index", 0);
-                Toast.makeText(this, "make " + songPos, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "make " + songPos, Toast.LENGTH_SHORT).show();
                 detailButton.setText(songList.get(songPos).get_title());
                 musicSrv.makeSong(songPos);
                 musicSrv.playSong();

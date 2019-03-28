@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +19,7 @@ import java.util.Comparator;
 
 public class SongListActivity extends AppCompatActivity {
 
-    private ArrayList<Song> songList;
+    public ArrayList<Song> songList;
     private ListView songView;
 
     @Override
@@ -25,19 +27,24 @@ public class SongListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_list);
 
+        //Toast.makeText(this,"abcsdd ",Toast.LENGTH_LONG).show();
+
+        //songList = new ArrayList<Song>();
 
 
-        songList = new ArrayList<Song>();
-        //songList = (ArrayList<Song>) getIntent().getSerializableExtra("list");
+
+        songList = (ArrayList<Song>) getIntent().getSerializableExtra("list");
+        //Toast.makeText(this,"abcsdd "+songList,Toast.LENGTH_LONG).show();
+
         songView=(ListView)findViewById(R.id.songView);
-        getSongList();
+       /* getSongList();
 
         Collections.sort(songList, new Comparator<Song>(){
             public int compare(Song a, Song b){
                 return a.get_title().compareTo(b.get_title());
             }
         });
-
+*/
 
         SongAdapter adapter = new SongAdapter(SongListActivity.this,songList);
         songView.setAdapter(adapter);
