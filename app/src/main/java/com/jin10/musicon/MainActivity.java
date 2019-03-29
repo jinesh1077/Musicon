@@ -29,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;;
 import com.jin10.musicon.MyService.musicBinder;
@@ -47,12 +48,13 @@ import java.util.Comparator;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
 
-    MyService musicSrv;
+
+        MyService musicSrv;
     boolean isBound = false;
-    private Button detailButton;
+    private Button detailButton,songMax,songMin;
     private ImageButton shuffleBtn,repeatBtn;
     public ArrayList<Song> songList;
     int songPos;
@@ -66,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
     private MyDbHandler dbHandler;
     private String[] lyr=new String[2];
     private LinearLayout lay;
-
+    private SeekBar seekBar;
+    private int mediaPos,mediaMax;
 
 
 
@@ -89,11 +92,14 @@ public class MainActivity extends AppCompatActivity {
         lyr[0]="";
         lyr[1]="";
         detailButton = (Button) findViewById(R.id.songDetail);
+        songMax = (Button) findViewById(R.id.songMax);
+        songMin = (Button) findViewById(R.id.sondMin);
         playBtn = (ImageButton) findViewById(R.id.playButton);
         shuffleBtn = (ImageButton)findViewById(R.id.shuffleButton);
         repeatBtn = (ImageButton)findViewById(R.id.repeatButton);
         dbHandler = new MyDbHandler(this,null,null,1);
         lay= (LinearLayout)findViewById(R.id.BtnLay);
+        seekBar=(SeekBar)findViewById(R.id.seekBar);
 
         songList = new ArrayList<Song>();
 
@@ -123,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 234);
             }
         });
+
+
+
 
         detailButton.setText(songList.get(songPos).get_title()+"\n"+songList.get(songPos).get_artist()+"\n"+songList.get(songPos).get_album());
 
@@ -155,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
                 songCover.setImageBitmap(bitmap);
             }
         }
+
+
         //lay.setBackground(songCover.getDrawable());
 
 
@@ -211,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
             musicSrv = binder.getService();
             musicSrv.makeList(songList);
             musicSrv.makeSong(songPos);
-            musicSrv.setSongDetail(detailButton, playBtn,songCover,imgLoc,lay);
+            musicSrv.setSongDetail(detailButton, playBtn,songCover,imgLoc,lay,seekBar,songMax,songMin);
             isBound = true;
         }
 

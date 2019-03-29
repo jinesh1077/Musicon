@@ -26,7 +26,7 @@
         android:id="@+id/songDetailPrev"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:background="@android:color/transparent"
         android:textColor="@color/ghostWhite" />
     <LinearLayout
@@ -49,13 +49,69 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/songDetailPast"
+    <LinearLayout
+        android:id="@+id/seekLay"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
+        android:orientation="vertical"
         android:background="@android:color/transparent"
-        android:textColor="@color/ghostWhite" />
+        >
+
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:id="@+id/sondMin"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_detail"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+
+                android:text="0:00"
+
+                android:textColor="@color/ghostWhite" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_detail"
+                android:gravity="center_horizontal"
+                android:layout_weight="5"
+
+                android:text="@string/detail"
+
+                android:textColor="@color/ghostWhite" />
+
+
+            <Button
+                android:id="@+id/songMax"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_detail"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+
+                android:text="0:00"
+
+                android:textColor="@color/ghostWhite" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/BtnLay"
